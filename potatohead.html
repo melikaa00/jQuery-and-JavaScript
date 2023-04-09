@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mr Potato Head</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+  <script src="testjq.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html,
+    body {
+      font-family: courier;
+      background-color: beige;
+      font-size: 16px;
+      text-align: center;
+      scroll-behaviour: smooth;
+      background-attachment: fixed;
+    }
+
+    h2 {
+      color: sienna;
+      font-family: courier;
+      font-size: 20px;
+    }
+
+    h1 {
+      color: purple;
+      font-family: verdana;
+      font-size: 60px;
+    }
+
+    p {
+      color: black;
+      font-family: courier;
+      font-size: 15px;
+      background-color: lightsteelblue;
+    }
+
+    #main {
+      height: auto;
+      width: auto;
+      margin: 10px auto;
+      background: lavender;
+      padding: 1px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      border-radius: 17px;
+      transition: ease all 0.25s;
+    }
+
+    .parts {
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      #main {
+        width: 350px;
+      }
+
+    }
+  </style>
+  <script>
+    $(function () {
+      $(".parts").draggable()
+    });
+  </script>
+</head>
+
+<body>
+  <h1>I am Mr.Potato Head!</h1>
+  <img src="potato-head.jpg" height="200"></img>
+  <div id="photo">
+    <div id="main">
+
+      <br><br>
+      <h3>Now you can drag and drop my body parts!</h3>
+      <br><br>
+
+      <div>
+        <img src="Body.png"></img>
+      </div>
+      <div>
+        <img class="parts" src="Arms.png"></img>
+        <img class="parts" src="Ears.png"></img>
+        <img class="parts" src="Eyebrows.png"></img>
+      </div>
+      <div>
+        <img class="parts" src="Eyes.png"></img>
+        <img class="parts" src="Hat.png"></img>
+        <img class="parts" src="Mouth.png"></img>
+      </div>
+      <div>
+        <img class="parts" src="Mustache.png"></img>
+        <img class="parts" src="Nose.png"></img>
+        <img class="parts" src="Shoes.png"></img>
+      </div>
+      <br><br>
+
+
+
+      <button onclick="takeshot()">Save </button>
+    </div>
+  </div>
+  <h2>If you click on the Save button, the picture will download and show again below!</h2>
+  <div id="output"></div>
+  <script type="text/javascript">
+
+    function takeshot() {
+      let div =
+        document.getElementById('photo');
+
+      html2canvas(div, { scrollY: -window.scrollY }).then(
+        function (canvas) {
+          document
+            .getElementById('output')
+            .appendChild(canvas);
+
+          saveAs(canvas.toDataURL(), 'picture.png');
+
+        })
+    }
+
+    function saveAs(uri, filename) {
+      var link = document.createElement('a');
+      if (typeof link.download === 'string') {
+        link.href = uri;
+        link.download = filename;
+
+
+        document.body.appendChild(link);
+
+
+        link.click();
+
+
+        document.body.removeChild(link);
+      } else {
+        window.open(uri);
+      }
+    }
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+
+      $("#hide").click(function () { $("back").hide(); });
+      $("#show").click(function () { $("back").show(); });
+      $("back").css("background-color", "yellow");
+
+    });
+
+  </script>
+
+  <div class="container">
+
+
+
+
+    <div>
+      <button id="close">close</button>
+      <br><br>
+      <img id="image-full" width="500" src="potato-head.jpg"></img>
+    </div>
+
+
+    <div>
+      <script>
+        $(document).ready(function () {
+          $("#close").click(function () {
+            console.log("close");
+            $("#image-full").width('500');
+          })
+          $("#image-full").hover(function () {
+            console.log("clicked");
+            var t = $("#image-full");
+            console.log(t.width())
+            if (t.width() == '500')
+              t.animate({ width: '100%' }, 1000);
+
+
+            $("#image-full").css("background-color", "green");
+          });
+        });
+      </script>
+    </div>
+
+  </div>
+
+
+
+</body>
+
+</html>
